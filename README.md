@@ -1,25 +1,24 @@
 # Electronics Deals
 
-A standalone site for browsing community-posted electronics sales. Search by keyword, filter by category or feed market, and sort by newest, biggest explicitly stated discount, or lowest price within one market. No paid API keys or third-party Python packages are required.
+A standalone, key-free electronics deal finder. Search titles and recognized retailer names; filter by feed market or category; sort by newest, stated discount, or price within one market.
 
 ## Publish
 
-In this repository, select **Settings → Pages → Build and deployment → Source → GitHub Actions**. Then open **Actions → Refresh and publish deals → Run workflow**. The workflow builds and publishes a fresh snapshot on pushes to `main`, every three hours when GitHub runs the schedule, and on demand. The deployed path is shown in the workflow's deployment result.
+Set Settings → Pages → Build and deployment → Source to GitHub Actions. Then run Actions → Refresh and publish deals → Run workflow. It also runs every three hours and on pushes to `main`.
 
 ## Preview locally
 
 ```sh
-python3 scripts/update_deals.py
+python3 scripts/refresh.py
 python3 -m http.server 8000 --directory site
 ```
 
-Open `http://localhost:8000`. The generated snapshot is intentionally ignored by Git.
+Open http://localhost:8000. The generated snapshot is not committed.
 
-## Modules and limitations
+## Sources and modules
 
-- `scripts/update_deals.py`: source configuration, RSS/Atom parsing, categorization and price extraction. Add feed adapters in `SOURCES` and category patterns in `CATEGORIES`.
-- `site/deals.js`: filtering, ranking and link validation.
-- `site/app.js`: snapshot loading and browser rendering.
-- `site/index.html` and `site/styles.css`: layout and responsive presentation.
+- `scripts/refresh.py` assembles the feeds and recognizes merchant names in titles or link domains. Add future feeds in `FEEDS`.
+- `scripts/update_deals.py` implements RSS/Atom parsing, category tagging and title-based pricing.
+- `site/deals.js` handles filtering and ranking, and `site/app.js` renders each snapshot.
 
-Canada uses RedFlagDeals; US uses Slickdeals. The page reports unavailable feeds. If both feeds fail, the workflow does not replace the previous deployment. Unmarked dollar currencies are inferred from the feed; price sorting does not compare CAD with USD. A discount is relative to a reference price stated in the title, not an independently verified historical low. Coverage depends on feed availability, and the site does not verify inventory, shipping or seller claims.
+Canada currently relies on RedFlagDeals. The US sources are Slickdeals, Newegg's official Daily Deals RSS, and 9to5Toys. Merchant recognition is not a direct integration with every recognized store: editorial and community links may go to a deal post instead of a product page. Source counts appear in the build log, and unavailable feeds appear on the site. When no electronics deals are collected, the workflow does not publish an empty replacement. Prices and discounts are as stated in the feeds, not independently verified; confirm shipping, currency and stock on the listing.

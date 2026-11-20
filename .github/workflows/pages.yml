@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: python3 scripts/update_deals.py
+      - run: python3 scripts/refresh.py
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
