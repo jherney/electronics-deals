@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Electronics Deals</title><link rel="stylesheet" href="./styles.css"></head>
+<body><header><p class="eyebrow">COMMUNITY DEAL FINDER</p><h1>Electronics Deals</h1><p>Search for a specific model or browse computers, audio, gaming gear and more.</p></header>
+<main><section class="filters" aria-label="Deal filters">
+<label>Search<input id="search" type="search" placeholder="SSD, headphones, USB-C"></label>
+<label>Feed market<select id="market"><option value="">All markets</option><option value="CA">Canada</option><option value="US">United States</option></select></label>
+<label>Category<select id="category"><option value="">All categories</option></select></label>
+<label>Sort<select id="sort"><option value="newest">Newest first</option><option value="discount">Biggest stated discount</option><option value="price">Lowest listed price</option></select></label>
+</section><p id="status" role="status">Loading deal snapshot…</p><p class="note">Pick one market to sort by price. Market labels describe the feed, not shipping eligibility. Confirm currency, stock and total cost before buying.</p><section id="results" class="grid" aria-label="Deal listings"></section><noscript>Enable JavaScript to browse deals.</noscript></main>
+<script type="module" src="./app.js"></script></body></html>
